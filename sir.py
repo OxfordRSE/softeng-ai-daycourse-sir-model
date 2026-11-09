@@ -4,13 +4,14 @@ import argparse
 import math
 
 
-def simulate_sir(population, infected, beta, gamma, days):
+def simulate_sir(population, infected, beta, gamma, days, vaccination=0.0):
     """Return daily susceptible, infected, and recovered populations."""
     for name, value in (
         ("population", population),
         ("infected", infected),
         ("beta", beta),
         ("gamma", gamma),
+        ("vaccination", vaccination),
     ):
         if isinstance(value, bool) or not isinstance(value, (int, float)):
             raise ValueError(f"{name} must be a finite number")
@@ -25,12 +26,16 @@ def simulate_sir(population, infected, beta, gamma, days):
         raise ValueError("beta must be between 0 and 1")
     if not 0 <= gamma <= 1:
         raise ValueError("gamma must be between 0 and 1")
+    if not 0 <= vaccination <= 1:
+        raise ValueError("vaccination must be between 0 and 1")
     if isinstance(days, bool) or not isinstance(days, int) or days < 0:
         raise ValueError("days must be a non-negative integer")
 
-    susceptible = [population - infected]
+    initial_susceptible = population - infected
+    vaccinated = initial_susceptible * vaccination
+    susceptible = [initial_susceptible - vaccinated]
     infected_values = [infected]
-    recovered = [0]
+    recovered = [vaccinated]
 
     for _ in range(days):
         previous_susceptible = susceptible[-1]
@@ -48,7 +53,9 @@ def simulate_sir(population, infected, beta, gamma, days):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Simulate a deterministic SIR epidemic.")
+    parser = argparse.ArgumentParser(
+        description="Simulate a deterministic SIR epidemic."
+    )
     parser.add_argument("--population", type=float, default=1000)
     parser.add_argument("--infected", type=float, default=10)
     parser.add_argument("--beta", type=float, default=0.3)
