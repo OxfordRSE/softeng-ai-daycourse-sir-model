@@ -30,6 +30,25 @@ During the course, you will:
 5. Configure GitHub Actions.
 6. Delegate a Streamlit dashboard and review its pull request.
 
+## Recovery points
+
+Recovery points are provided in-case you run into issues during the practicals. These are destructive and will **replace** your current work. Use them only if you are stuck and cannot recover your work.
+
+Recovery points are available as branches for the following practicals:
+- `recovery/coding`
+- `recovery/testing`
+- `recovery/dashboard`
+
+For example, to revert to the `recovery/coding` checkpoint, run:
+```
+git reset --hard
+git clean -fd
+git switch main
+git reset --hard recovery/coding
+```
+
+**Instructor note:** Recovery branches should be rebased onto main whenever the main branch is updated.
+
 ## Important
 
 This is an educational example, not a validated epidemiological forecasting tool.
