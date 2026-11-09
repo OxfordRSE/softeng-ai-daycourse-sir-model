@@ -13,10 +13,24 @@ The application is intentionally not implemented yet.
 3. Read `DESIGN.md` and `AGENTS.md`.
 4. Follow the course practicals to implement and extend the simulator.
 
+## Running the dashboard
+
+Install the application dependency, then launch the Streamlit dashboard:
+
+```bash
+python -m pip install -r requirements.txt
+streamlit run app.py
+```
+
+Use the sidebar to adjust the population, initial infections, transmission rate,
+recovery rate, and simulation duration. The chart shows susceptible, infected,
+and recovered populations for each simulated day.
+
 ## Repository contents
 
 - `DESIGN.md` — application requirements and scientific assumptions.
 - `AGENTS.md` — instructions and boundaries for AI coding agents.
+- `app.py` — Streamlit dashboard for the SIR simulator.
 - `docker/` — files used in the environments practical.
 
 ## Course progression
